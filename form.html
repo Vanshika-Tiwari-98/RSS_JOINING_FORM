@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="style.css"> 
+      </head>
+
+<body>
+    <img src="OM_RSS.JPG" alt = "OM IMAGE" width="100">
+    
+
+    <h1>RSS JOINING FORM (LALITPUR,UTTAR PRADESH)</h1>
+    <h3>Personal information</h3>
+    <form id = "RSS_Form_Responses">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" required><br>
+        <p></p>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" required>
+        <p></p>
+        <label for="father_name">Father name:</label><br>
+        <input type="text" id="father_name" name="father_name" required><br>
+        <p></p>
+        <label for="Mother_name">Mother name:</label><br>
+        <input type="text" id="Mother_name" name="Mother_name"><br>
+        <p></p>
+        <label for="dob">Select your date of birth:</label><br>
+        <input type="date" id="dob" name="dob" max="2009-11-30" required>
+        <p></p>
+        <label>Have you ever participated in RSS activities:</label><br>
+        <input type="radio" id="yes" name="rss-participation" value="yes">
+        <label for="yes">Yes</label><br>
+        <input type="radio" id="no" name="rss-participation" value="no">
+        <label for="no">No</label>
+        <p></p>
+        <label for="address-line1">Address Line 1:</label><br>
+        <input type="text" id="address-line1" name="address-line1" required><br><br>
+
+        <label for="address-line2">Address Line 2:</label><br>
+        <input type="text" id="address-line2" name="address-line2"><br><br>
+        <label for="city">City:</label><br>
+        <input type="text" id="city" name="city" required><br><br>
+        <label for="Nagar/Khand">Nagar/Khand:</label><br>
+        <select id="Nagar/Khand" name="Nagar/Khand" required>
+        <option value="">--Select Your Nagar/Khand--</option>
+        <option value="Mehroni Nagar">Mehroni Nagar</option>
+        <option value="Lalitpur Nagar">Lalitpur Nagar</option>
+        <option value="Talbehat Nagar">Talbehat Nagar</option>
+        <option value="Talbehat Khabd">Talbehat Khand</option>
+        <option value="Madwara Khand">Madwara Khand</option>
+        <option value="Mehroni Khand">Mehroni Khand</option>
+        <option value="Birdha Khand">Birdha Khand</option>
+        <option value="Jakhura Khand">Jakhura Khand</option>
+        </select><br><br>
+        <label for="contact-number">Contact Number:</label><br>
+        <input type="text" id="contact-number" name="contact-number" 
+           placeholder="Enter 10-digit number" 
+           pattern="\d{10}" 
+           title="Please enter a valid 10-digit number" 
+           required><br><br>
+           <label>Select your profession:</label><br>
+           <input type="radio" id="student" name="profession" value="Student" onclick="toggleOtherInput(false)" required>
+           <label for="student">Student</label><br>
+       
+           <input type="radio" id="business" name="profession" value="Business" onclick="toggleOtherInput(false)">
+           <label for="business">Business</label><br>
+       
+           <input type="radio" id="agriculture" name="profession" value="Agriculture" onclick="toggleOtherInput(false)">
+           <label for="agriculture">Agriculture</label><br>
+       
+           <input type="radio" id="other" name="profession" value="Other" onclick="toggleOtherInput(true)">
+           <label for="other">Other</label><br><br>
+       
+           <div id="other-profession" style="display: none;">
+             <label for="other-text">Please specify:</label><br>
+             <input type="text" id="other-text" name="other-text" placeholder="Enter your profession"><br><br>
+           </div>  
+           <label>Do you participate in social work or work in a political party?</label><br>
+           <input type="radio" id="social-work" name="participation" value="Social Work" onclick="togglePoliticalPartyInput(false)" required>
+           <label for="social-work">Social Work</label><br>
+       
+           <input type="radio" id="political-party" name="participation" value="Political Party" onclick="togglePoliticalPartyInput(true)">
+           <label for="political-party">Political Party</label><br><br>
+       
+           <div id="political-party-details" style="display: none;">
+             <label for="party-name">Please specify the political party you belong to:</label><br>
+             <input type="text" id="party-name" name="party-name" placeholder="Enter party name"><br><br>
+           </div>
+           <button type="submit">Submit</button>    
+    
+        
+      </form>
+      <script>
+        function toggleOtherInput(show) {
+          const otherInput = document.getElementById('other-profession');
+          if (show) {
+            otherInput.style.display = 'block';
+          } else {
+            otherInput.style.display = 'none';
+          }
+        }
+      </script>
+      <script>
+        function togglePoliticalPartyInput(show) {
+          const politicalPartyDetails = document.getElementById('political-party-details');
+          if (show) {
+            politicalPartyDetails.style.display = 'block';
+          } else {
+            politicalPartyDetails.style.display = 'none';
+          }
+        }
+      </script>
+
+
+
+<script>
+  const form = document.getElementById("RSS_Form_Responses");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Prevent form from refreshing the page
+
+    // Collect form data
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwILUHcT7jA4NTVNS0yMpEXuJ8qdtVNyNjbasmnFhb1e45n8CVggbRp1iPddrTZn7i8/exec", // Replace with your Web App URL
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        alert("Form submitted successfully!");
+      } else {
+        alert("Failed to submit form.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting form.");
+    }
+  });
+</script>
+<script>
+  const form = document.getElementById("RSS_Form_Responses");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Collect form data
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  // Submit data to Google Apps Script Web App
+  try {
+    const response = await fetch(https://script.google.com/macros/s/AKfycbwILUHcT7jA4NTVNS0yMpEXuJ8qdtVNyNjbasmnFhb1e45n8CVggbRp1iPddrTZn7i8/exec,{)
+      method: "POST",
+      body: JSON.stringify(data), // Send as JSON
+      headers: {
+        "Content-Type": "application/json", // Ensure JSON content type
+      },
+    });
+
+    const result = await response.json();
+    if (result.status === "success") {
+      alert("Form submitted successfully!");
+      form.reset();
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Failed to connect to the server.");
+  }
+});
+
+</script>
+</body>
+
+</html>
